@@ -1,0 +1,436 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+#main{
+    width: 100%;
+    height: 100vh;
+    flex: 1;
+}
+
+/*Variables*/
+
+:root {
+    --primary-color: #28cd95;
+    --secondary-color: #ff86f3;
+    --tertiary-color: #5f68cd;
+    --bg-color: #ffc95c;
+    --white-color: #fff;
+    --error-color: red;
+    --border-color: #dedede;
+    --font-family: "Open Sans, sans-serif";
+    --font-weight-normal: 400;
+    --font-weight-bold: 600;
+    --font-size-normal: 1.2rem;
+    --font-size-medium: 1.6rem;
+    --font-size-large: 1.8rem;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-normal);
+    background-color: var(--bg-color);
+    /* min-height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 80rem;
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.row {
+    display: flex;
+    position: relative;
+    width: 100%;
+    background-color: var(--white-color);
+}
+
+.form {
+    flex: 1 0 100%;
+    min-height: 60rem;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 05s cubic-bezier(0.19, 1, 0,22, 1);
+}
+
+.row .form.active {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+section {
+    max-width: 80rem;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 4rem;
+    background-color: var(--white-color);
+}
+
+.row .form h2 {
+    font-size: var(--font-size-large);
+    letter-spacing: -0.08rem;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+
+.row .form p{
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-bold);
+    max-width: 15rem;
+    margin: 1.5rem 0;
+}
+
+.row .form .form-group {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.row .sign-in .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.row .form .form-group .form-control {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.row .form .form-group .form-control label {
+    font-size: var(--font-size-normal);
+    text-transform: capitalize;
+}
+
+.row .form .form-group .form-control input {
+    padding: 1rem 1.5rem;
+    border-radius: 0.8rem;
+    outline: none;
+    border: 0.2rem solid var(--border-color);
+}
+
+.row .form .form-group .form-control input:focus {
+    border-color: var(--primary-color);
+}
+
+.row .form .form-group .form-control span {
+    position: absolute;
+    top: 1.9rem;
+    right: 0.2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-left: 0.1rem solid var(--border-color);
+}
+
+.row .form .form-group .form-control span i {
+    font-size: var(--font-size-medium);
+    color: var(--primary-color);
+}
+
+.row .form .form-group button {
+    width: 100%;
+    height: 4.2rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-transform: capitalize;
+    font-size: var(--font-size-large);
+    border: none;
+    outline: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.row .form .form-group button:hover {
+    opacity: 0.8;
+}
+
+.container .bottom {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    background-color: #eeeeee;
+}
+
+.container .bottom .btn {
+    flex: 1;
+    padding: 2rem;
+    text-transform: capitalize;
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-bold);
+    border-bottom: 0.4rem solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.container .bottom .btn.active {
+    background-color: var(--white-color);
+    border-color: var(--primary-color);
+}
+
+.row .square {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    border-width: 2rem;
+    border-color: var(--primary-color);
+    border-style: solid;
+    background-color: var(--white-color);
+}
+
+.row .square::before {
+    content: "";
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--secondary-color);
+}
+
+.row .square::after {
+    content: "";
+    position: absolute;
+    bottom: -2rem;
+    left: -2rem;
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--tertiary-color);
+}
+
+.error-message {
+    display: none;
+    color: var(--error-color);
+    padding: 0.5rem;
+}
+
+.error-input {
+    background-color: var(--error-color) !important;
+}
+
+#successMessage {
+    display: none;
+    font-size: var(--font-size-medium);
+    color: var(--primary-color);
+    text-align: center;
+}
+
+/* responsive */
+
+@media (min-width: 540px) {
+    .row .form .form-group {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .row .form .form-group .form-control {
+        margin-bottom: 0;
+    }
+
+    .row .sign-up .form-group .form-control {
+        height: 8rem;
+    }
+
+    .row .sign-up .form-group:nth-last-child(2) {
+        margin-top: 1.2rem;
+    }
+
+}
+
+/* footer */
+
+.container-fo{
+	max-width: 1170px;
+	margin:auto;
+}
+.row-fo{
+	display: flex;
+	flex-wrap: wrap;
+}
+ul{
+	list-style: none;
+}
+.footer{
+	background-color: #24262b;
+    padding: 70px 0;
+    margin-top: 10px;
+}
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #e91e63;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+
+.header {
+    width: 100%;
+    background-color: white;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.header nav li {
+    list-style:  none;
+    height: 50px;
+    margin-right: 20px; 
+}
+
+.header nav a {
+    height: 100%;
+    padding: 0 20px; 
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.header a:hover{
+    background-color: #f0f0f0;
+}
+
+.header .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.header .sidebar li {
+    width: 100%;
+}
+
+.header .sidebar a {
+    width: 100%;
+}
+
+.menu-button{
+    display: none;
+}
+
+@media (max-width: 800px){
+    .hideOnMobile{
+        display: none;
+    }
+    .menu-button{
+        display: block;
+    }
+    .header .sidebar {
+        width: 100%; /* Set the sidebar width to 100% for screens with max-width: 800px */
+    }
+}
+
+@media (max-width: 400px){
+    .sidebar{
+        width: 100%;
+    }
+}

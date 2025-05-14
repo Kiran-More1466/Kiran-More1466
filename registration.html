@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/registration-style.css">
+  <title>Document</title>
+
+</head>
+<body>
+
+  <div class="header">
+    <nav>
+      <ul class="sidebar">
+      <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Forum</a></li>
+      <li><a href="#">Login</a></li>
+      </ul>
+      <ul>
+        <li><a href="../pages/index.html">Home</a></li>
+        <li class="hideOnMobile"><a href="#">Blog</a></li>
+        <li class="hideOnMobile"><a href="#">Products</a></li>
+        <li class="hideOnMobile"><a href="#">About</a></li>
+        <li class="hideOnMobile"><a href="#">Forum</a></li>
+        <li class="hideOnMobile"><a href="#">Login</a></li>
+        <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+        </ul>
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <section class="form sign-up active">
+        <h2>sign up</h2>
+        <p>Lorem ipsum dolor sit amet.</p>
+        <form id="register">
+          <div class="form-group">
+            <div class="form-control">
+              <label>first name</label>
+              <input type="text" name="txt_fname" id="firstName">
+              <div id="firstNameError" class="error-message">
+                First Name can't be empty
+              </div>
+            </div>
+              <div class="form-control">
+                <label>last name</label>
+                <input type="text" name="txt_lname" id="lastName">
+                <div id="lastNameError" class="error-message">
+                  Lirst Name can't be empty
+                </div>
+              </div>
+              </div>
+              <div class="form-group">
+                <div class="form-control">
+                  <label>email address</label>
+                  <input type="email" name="txt_email" id="email" autocomplete="new-username">
+                  <div id="emailError" class="error-message">
+                    Lirst Name can't be empty
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-control">
+                  <label>password</label>
+                  <input type="password" name="txt_pass" id="password" autocomplete="new-password">
+                  <span id="passwordToggle"><i class="fa-regular fa-eye"></i></span>
+                  <div id="passwordError" class="error-message">
+                    Lirst Name can't be empty
+                  </div>
+                </div>
+                <div class="form-control">
+                  <label>confirm  password</label>
+                  <input type="password" name="txt_cpass" id="confirmPassword">
+                  <div id="confirmPasswordError" class="error-message">
+                    Lirst Name can't be empty
+                  </div>
+                </div>
+              </div>
+                <div class="form-group">
+                  <div class="form-control">
+                    <label>phone number</label>
+                    <input type="tel" name="txt_phone" id="phoneNumber">
+                    <div id="phoneNumberError" class="error-message">
+                      Lirst Name can't be empty
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <button type="submit">sign up</button>
+              </div>
+        </form>
+        <div id="successMessage">Registration Completed</div>
+      </section>
+      <section class="form sign-in">
+        <h2>sign in</h2>
+        <p>Lorem ipsum dolor sit amet.</p>
+        <form id="login">
+          <div class="form-group">
+            <div class="form-control">
+              <label>email address</label>
+              <input type="email" name="txt_emailLogin" id="emailLogin" autocomplete="username">
+              <div id="emailLoginError" class="error-message"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-control">
+              <label>password</label>
+              <input type="password" name="txt_passLogin" id="passwordLogin" autocomplete="new-password">
+              <div id="passwordLoginError" class="error-message"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit">sign-in</button>
+          </div>
+        </form>
+      </section>
+      <div class="square"></div>
+    </div>
+    <ul class="bottom">
+      <li class="btn active" data-btn="sign-up">sign up</li>
+      <li class="btn" data-btn="sign-in">sign in</li>
+    </ul>
+  </div>
+
+
+  <div id="main">
+    <footer class="footer">
+      <div class="container-fo">
+        <div class="row-fo">
+          <div class="footer-col">
+            <h4>company</h4>
+            <ul>
+              <li><a href="#">about us</a></li>
+              <li><a href="#">our services</a></li>
+              <li><a href="#">privacy policy</a></li>
+            
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>get help</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              
+              <li><a href="#">payment options</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h4>follow us</h4>
+            <div class="social-links">
+              <a href="#"><i class="fa fa-facebook"></i></a>
+             
+              <a href="#"><i class="fa fa-instagram"></i></a>
+           
+            </div>
+          </div>
+        </div>
+      </div>
+   </footer>
+  </div>
+
+    <script>
+      function showSidebar(){
+        const sidebar = document.querySelector('.sidebar')
+        sidebar.style.display = 'flex'
+      }
+      function hideSidebar(){
+        const sidebar = document.querySelector('.sidebar')
+        sidebar.style.display = 'none'
+      }
+    </script>
+    <script src="https://kit.fontawesome.com/c083d2edf4.js" crossorigin="anonymous"></script>
+    <script src="../script/registration.js"></script>
+
+  
+</body>
+</html>

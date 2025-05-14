@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registration Form</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../css/register.css" />
+    <script src="../script/loginPageJavascript.js"></script>
+
+    <script>
+      // JavaScript function for real-time username validation
+      function validateName() {
+        var name = document.getElementById("name").value;
+        var errorContainer = document.getElementById("name-error");
+
+        if (name.length === 0) {
+          errorContainer.textContent = "Name is required";
+        } else {
+          errorContainer.textContent = ""; // Clear the error message
+        }
+      }
+
+      // JavaScript function for real-time email validation
+      function validateEmail() {
+        var email = document.getElementById("email").value;
+        var errorContainer = document.getElementById("email-error");
+
+        if (email.length === 0) {
+          errorContainer.textContent = "Email is required";
+        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+          errorContainer.textContent = "Invalid email format";
+        } else {
+          errorContainer.textContent = ""; // Clear the error message
+        }
+      }
+
+      // JavaScript function for real-time password validation
+      function validatePassword() {
+        var password = document.getElementById("password").value;
+        var errorContainer = document.getElementById("password-error");
+
+        if (
+          password.length < 8 ||
+          password.length > 20 ||
+          !/\d/.test(password)
+        ) {
+          errorContainer.textContent =
+            "Password must be 8-20 characters and include at least one number";
+        } else {
+          errorContainer.textContent = ""; // Clear the error message
+        }
+      }
+
+      // JavaScript function for real-time confirm password validation
+      function validateconfirmpassword() {
+        var confirmpassword = document.getElementById("confirmpassword").value;
+        var password = document.getElementById("password").value;
+        var errorContainer = document.getElementById("confirmpassword-error");
+
+        if (confirmpassword !== password) {
+          errorContainer.textContent = "Passwords do not match";
+        } else {
+          errorContainer.textContent = ""; // Clear the error message
+        }
+      }
+
+      // Add event listeners for real-time validation
+      document.getElementById("name").addEventListener("input", validateName);
+      document.getElementById("email").addEventListener("input", validateEmail);
+      document
+        .getElementById("password")
+        .addEventListener("input", validatePassword);
+      document
+        .getElementById("confirmpassword")
+        .addEventListener("input", validateconfirmpassword);
+    </script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="login_box">
+        <div class="login-header">
+          <span>Register</span>
+        </div>
+        <form action="../script/register.php" method="post">
+          <div class="input_box">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="input-field"
+              required
+              oninput="validateName()"
+            />
+            <label for="name" class="label">Name</label>
+            <i class="bx bx-user icon"></i>
+            <div id="name-error" class="error-message"></div>
+          </div>
+
+          <div class="input_box">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="input-field"
+              required
+              oninput="validateEmail()"
+            />
+            <label for="email" class="label">Email</label>
+            <i class="bx bx-envelope icon"></i>
+            <div id="email-error" class="error-message"></div>
+          </div>
+
+          <div class="input_box">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input-field"
+              required
+              oninput="validatePassword()"
+            />
+            <label for="password" class="label">Password</label>
+            <i
+              class="bx bx-lock-alt icon"
+              id="togglePassword"
+              onclick="togglePasswordVisibility('password', 'togglePassword')"
+            ></i>
+            <div id="password-error" class="error-message"></div>
+          </div>
+
+          <div class="input_box">
+            <input
+              type="password"
+              id="confirmpassword"
+              name="confirmpassword"
+              class="input-field"
+              required
+              oninput="validateconfirmpassword()"
+            />
+            <label for="confirmpassword" class="label">Confirm Password</label>
+            <i
+              class="bx bx-lock-alt icon"
+              id="toggleconfirmpassword"
+              onclick="togglePasswordVisibility('confirmpassword', 'toggleconfirmpassword')"
+            ></i>
+            <div id="confirmpassword-error" class="error-message"></div>
+          </div>
+          <div class="register">
+            <span>Have an account? <a href="login.php">Login</a></span>
+          </div>
+          <div class="input_box">
+            <input type="submit" class="input-submit" value="Register" />
+          </div>
+        </form>
+
+        <div class="register">
+          <!-- PHP code for server-side validation goes here -->
+          <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $server = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $database = "llb";
+
+                    $con = mysqli_connect($server, $username, $password, $database);
+                    if (!$con) {
+                        die("Connection to this database failed due to" . mysqli_connect_error());
+                    }
+
+                    $username = mysqli_real_escape_string($con, $_POST['username']);
+                    $email = mysqli_real_escape_string($con, $_POST['email']);
+                    $password = mysqli_real_escape_string($con, $_POST['password']);
+                    $confirmpassword = mysqli_real_escape_string($con, $_POST['confirmpassword']);
+
+                    // Validate if the username already exists
+                    $checkUsernameQuery = "SELECT * FROM users WHERE email = '$email'";
+                    $result = mysqli_query($con, $checkUsernameQuery);
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+                    if (mysqli_num_rows($result) >
+          0) { echo "Email already exists. Please choose a different username.";
+          } else { $sql = "INSERT INTO `llb`.`users` (username,email, password)
+          VALUES ('$username', '$email','$hashedPassword')"; if
+          ($con->query($sql) === true) { echo "Successfully inserted"; } else {
+          echo "ERROR: $sql <br />
+          $con->error"; } } $con->close(); } ?>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

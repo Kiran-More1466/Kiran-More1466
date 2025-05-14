@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Modern Login Form</title>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap'>
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="../script/loginPageJavascript.js"></script>
+    <!-- Add this to the head section of your HTML -->
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="wrapper">
+        <div class="login_box">
+            <div class="login-header">
+                <span>Login</span>
+            </div>
+
+            <form method="post" action="../pages/login.php">
+                <!-- Update the action attribute with your PHP script name -->
+                <div class="input_box">
+                    <input type="text" id="user" name="user" class="input-field" required oninput="enableLoginButton()">
+                    <label for="user" class="label">Username</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="password" id="password" name="password" class="input-field" required
+                        oninput="enableLoginButton()">
+                    <label for="password" class="label">Password</label>
+                    <i class="bx bx-lock-alt icon" id="togglePassword"
+                        onclick="togglePasswordVisibility('password', 'togglePassword')"></i>
+                </div>
+
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+
+                    <div class="forgot">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+
+                <div class="input_box">
+                    <input type="submit" class="input-submit" value="Login" id="loginButton">
+                </div>
+            </form>
+
+            <div class="register">
+                <span>
+                    <?php
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $server = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $database = "llb";
+
+                        $con = mysqli_connect($server, $username, $password, $database);
+
+                        // Check connection
+                        if (!$con) {
+                            die("Connection to this database failed due to" . mysqli_connect_error());
+                        }
+
+                        session_start();
+
+                        $username = $_POST['user'];
+                        $password = $_POST['password'];
+
+                        // Use prepared statement to prevent SQL injection
+                        $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
+                        $stmt->bind_param("s", $username);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        if ($result->num_rows == 1) {
+                            $row = $result->fetch_assoc();
+
+                            // Use password_verify to check the hashed password
+                            if (password_verify($password, $row['password'])) {
+                                // User is authenticated
+                                $_SESSION['username'] = $username;
+                                $_SESSION['password'] = $password;
+                                header("location: index.html"); // Redirect to a welcome page or the user's dashboard
+                            } else {
+                                // Invalid credentials, display an error message
+                                echo "Invalid username or password";
+                            }
+                        } else {
+                            // Invalid username
+                            echo "Invalid username";
+                        }
+
+                        $stmt->close();
+                        $con->close();
+                    }
+                    ?></a>
+                </span>
+            </div>
+            <div class="register">
+                <span>Don't have an account? <a href="register.php">Register</a></span>
+            </div>
+        </div>
+    </div>
+    <!-- partial -->
+
+</body>
+
+</html>
